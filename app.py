@@ -698,7 +698,6 @@ sort_option = st.sidebar.selectbox(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("권장 해석 순서: 공간 분포 → 자치구 비교 → 사각지대 도출")
 
 demand_col = DEMAND_METRICS[selected_demand_label]
 supply_col = SUPPLY_METRICS[selected_supply_label]
@@ -726,21 +725,17 @@ st.markdown(
 st.markdown(
     """
     <div class="app-subtitle">
-        서울시 자치구별 노인 경제 취약 수요와 노인 일자리 지원 인프라를 함께 분석하여,
-        지역별 수요-공급 불균형과 정책적 사각지대를 시각적으로 파악하기 위한 Streamlit 대시보드입니다.
+        2026 서울시 빅데이터 활용 경진대회 -시각화 부문 출품작
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-summary_col1, summary_col2, summary_col3 = st.columns(3)
+summary_col1, summary_col2 = st.columns(2)
 with summary_col1:
     st.metric("분석 대상 자치구", f"{df_chart['자치구'].nunique()}개")
 with summary_col2:
     st.metric("전체 수행기관 수", f"{int(df_chart['institution_count'].sum())}개")
-with summary_col3:
-    top_district = df_chart.sort_values("blind_spot_index", ascending=False).iloc[0]["자치구"]
-    st.metric("사각지대 지수 상위 지역", top_district)
 
 
 # -----------------------------
@@ -758,10 +753,8 @@ with tab1:
     st.subheader("작품 소개")
     st.markdown(
         """
-        이 작품은 서울시 자치구별 노인 경제 취약 수요와 노인 일자리 지원 인프라를 함께 분석하여,
-        지역별 수요-공급 불균형과 정책적 사각지대를 시각적으로 파악하는 것을 목표로 합니다.
-        사용자는 공간 분포, 자치구별 비교, 사각지대 도출의 흐름을 따라가며
-        서울시 내부의 지원 불균형을 단계적으로 확인할 수 있습니다.
+        이 작품은 서울시 자치구별 노인 경제 취약 수요와 노인 일자리 지원 인프라를 함께 시각화하여,
+        지역별 수요-공급 불균형과 정책적 사각지대를 파악하는 것을 목표로 합니다.
         """
     )
 
@@ -801,15 +794,6 @@ with tab1:
             """
         )
 
-    st.markdown(
-        """
-        <div class="footer-note">
-        첫 번째 탭은 작품의 전시 안내판 역할을 하며, 차트 대신 작품 설명과 데이터 출처를 중심으로 구성했습니다.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
 
 # -----------------------------
 # 탭 2. 수요와 공급의 공간적 분포
@@ -818,7 +802,7 @@ with tab2:
     st.subheader("수요와 공급의 공간적 분포")
     st.markdown(
         """
-        이 탭은 서울시 전체 공간 구조를 먼저 직관적으로 이해하기 위한 탐색용 화면입니다.
+        서울시 전체 공간 구조를 먼저 직관적으로 이해하기 위한 탐색용 화면입니다.
         취약 수요와 수행기관 분포를 따로 본 뒤, 통합 지도로 겹쳐 보면서 지역별 불균형을 확인할 수 있습니다.
         """
     )
@@ -907,7 +891,7 @@ with tab3:
     st.subheader("자치구별 비교 분석")
     st.markdown(
         """
-        이 탭은 공간 탐색에서 느낀 인상을 수치로 확인하는 정량 비교 화면입니다.
+        공간 탐색에서 느낀 인상을 수치로 확인하는 정량 비교 화면입니다.
         전체 자치구를 한 번에 비교한 뒤, 특정 자치구를 서울시 평균과 직접 비교할 수 있습니다.
         """
     )
@@ -957,7 +941,6 @@ with tab3:
             <div class="summary-box">
             <b>{selected_district}</b>는 서울시 평균과 비교했을 때
             취약 수요와 공급 기반이 어느 방향으로 차이를 보이는지 확인할 수 있는 지역입니다.
-            특정 자치구는 취약성이 평균보다 높고 지원 기반은 상대적으로 약한 패턴을 보입니다.
             </div>
             """,
             unsafe_allow_html=True,
@@ -971,7 +954,7 @@ with tab4:
     st.subheader("사각지대 도출")
     st.markdown(
         """
-        이 탭은 사각지대 분석 결과를 보여주는 화면입니다.
+        사각지대 분석 결과를 보여주는 화면입니다.
         사분면 산점도는 자치구를 유형으로 나누고, 사각지대 지수 바 차트는 우선순위를 순위 형태로 제시합니다.
         """
     )
