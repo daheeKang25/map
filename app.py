@@ -693,7 +693,7 @@ selected_district = st.sidebar.selectbox(
 
 sort_option = st.sidebar.selectbox(
     "자치구 정렬 기준",
-    ["사각지대 지수순", "취약 수요순", "공급 지표순", "기본 행정구 순"],
+    ["사각지대 지수 순", "취약 수요 순", "공급 지표 순", "기본 행정구 순"],
     index=0,
 )
 
@@ -704,11 +704,11 @@ supply_col = SUPPLY_METRICS[selected_supply_label]
 
 df_chart, x_mean, y_mean = build_dynamic_metrics(df_base, demand_col, supply_col)
 
-if sort_option == "사각지대 지수순":
+if sort_option == "사각지대 지수 순":
     df_sorted = df_chart.sort_values("blind_spot_index", ascending=False)
-elif sort_option == "취약 수요순":
+elif sort_option == "취약 수요 순":
     df_sorted = df_chart.sort_values("demand_value", ascending=False)
-elif sort_option == "공급 지표순":
+elif sort_option == "공급 지표 순":
     df_sorted = df_chart.sort_values("supply_value", ascending=False)
 else:
     df_sorted = df_chart.copy()
@@ -891,7 +891,7 @@ with tab3:
     st.subheader("자치구별 비교 분석")
     st.markdown(
         """
-        공간 탐색에서 느낀 인상을 수치로 확인하는 정량 비교 화면입니다.
+        공간적 분포를 수치로 확인하는 정량 비교 화면입니다.
         전체 자치구를 한 번에 비교한 뒤, 특정 자치구를 서울시 평균과 직접 비교할 수 있습니다.
         """
     )
@@ -939,8 +939,8 @@ with tab3:
         st.markdown(
             f"""
             <div class="summary-box">
-            <b>{selected_district}</b>는 서울시 평균과 비교했을 때
-            취약 수요와 공급 기반이 어느 방향으로 차이를 보이는지 확인할 수 있는 지역입니다.
+            <b>{selected_district}</b>와 서울시 평균을 비교했을 때
+            취약 수요와 공급 기반이 어느 방향으로 차이를 보이는지 확인할 수 있습니다.
             </div>
             """,
             unsafe_allow_html=True,
@@ -981,7 +981,7 @@ with tab4:
     st.markdown(
         f"""
         <div class="summary-box">
-        <b>사각지대 요약</b><br>
+        <b>사각지대 결과 요약</b><br>
         현재 선택한 지표 기준에서 취약 수요가 높고 기관 기반이 낮은 자치구는
         <b>{top5_text}</b> 등으로 나타납니다.<br><br>
         세 지표 모두에서 고수요·저공급으로 나타나는 공통 자치구는 <b>강북구·강서구·금천구·은평구</b>입니다.
