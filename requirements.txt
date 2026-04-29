@@ -1,0 +1,8 @@
+streamlit
+pandas
+numpy
+plotly
+streamlit-plotly-events
+plotly.express
+shapely.ops
+shapely.geometry
